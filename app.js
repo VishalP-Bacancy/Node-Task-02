@@ -47,6 +47,7 @@ fs.readFile(csvFilePath, 'utf8', (err, data) => {
     return [trainData.reduce((max, curr) => +curr.distance > +max.distance ? curr : max)]
   };
   
+
   const shortestRoute = () => {
     const stationNumber = []
       for (let i = 0; i < trainData.length; i++) {
@@ -59,21 +60,22 @@ fs.readFile(csvFilePath, 'utf8', (err, data) => {
         }
     }
     
-      stationNumber.sort((a,b)=>{return a.trainTotalDistance - b.trainTotalDistance})
+    stationNumber.sort((a,b) => a.trainTotalDistance - b.trainTotalDistance)
     
     let smallestDistance = Infinity, smallestRouteTrainNumber = '';
-for (const train of stationNumber) {
-  const distance = parseInt(train.trainTotalDistance);
-  if (distance < smallestDistance) {
-    smallestDistance = distance;
-    smallestRouteTrainNumber = train.trainNumber;
-  }
-}
+    for (const train of stationNumber) {
+      const distance = parseInt(train.trainTotalDistance);
+      if (distance < smallestDistance) {
+        smallestDistance = distance;
+        smallestRouteTrainNumber = train.trainNumber;
+      }
+    }
   
     return trainData.filter((train) => train.trainNo === smallestRouteTrainNumber)
 }
   
-  const lessStationNumber = () => {
+  
+const lessStationNumber = () => {
     const stationNumber = []
     
       for (let i = 0; i < trainData.length; i++) {
@@ -102,7 +104,8 @@ for (const train of stationNumber) {
     return stationNumber
   }
  
-  const maxStationNumber = () => {
+
+const maxStationNumber = () => {
     const stationNumbers = [];
 
     for (let i = 0; i < trainData.length; i++) {
@@ -131,10 +134,10 @@ for (const train of stationNumber) {
       stationNumbers.length = flag + 1;
     }
   
-    return stationNumbers;
-  }
+  return stationNumbers;
+}
 
-  const numOfTrain = () => {
+const numOfTrain = () => {
     const stationNumbers = [];
 
     for (let i = 0; i < trainData.length - 1; i++) {
@@ -148,13 +151,14 @@ for (const train of stationNumber) {
         });
       }
     }
-   return stationNumbers
-  }
+  return stationNumbers
+}
 
-  const travelOptions = () => {
-    const source = args[3], destination = args[4]
-    return trainData.filter(train => train.sourceStationCode === source && train.destinationStationCode === destination && train.stationCode === source)
-  }
+const travelOptions = () => {
+  const source = args[3], destination = args[4]
+  
+  return trainData.filter(train => train.sourceStationCode === source && train.destinationStationCode === destination && train.stationCode === source)
+}
 
   
   switch (args[2]) {
@@ -164,15 +168,15 @@ for (const train of stationNumber) {
       }
       break;
 
-    case 'QUESTION_NO-2': {
+      case 'QUESTION_NO-2': {
                console.log('2. Train info with shortest route: ')
                console.table(shortestRoute());
       }
       break;
 
       case 'QUESTION_NO-3': {
-               console.log('3. Train info with which covers less no of station between starting and ending station:- ')
-               console.table(lessStationNumber())
+                              console.log('3. Train info with which covers less no of station between starting and ending station:- ')
+                              console.table(lessStationNumber())
       }
       break;
 
@@ -195,7 +199,7 @@ for (const train of stationNumber) {
       break;
 
       default:
-          console.log('Invalid');
+          console.log('Invalid Argument!!');
   }
 
 
