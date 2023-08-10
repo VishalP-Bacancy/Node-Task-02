@@ -52,11 +52,11 @@ fs.readFile(csvFilePath, 'utf8', (err, data) => {
     const stationNumber = []
       for (let i = 0; i < trainData.length; i++) {
         if (i === (trainData.length - 1)) {
-          stationNumber.push({ trainNumber: trainData[i].trainNo, trainTotalStation: trainData[i].seq, trainTotalDistance: trainData[i].distance })
+          stationNumber.push({ trainNumber: trainData[i].trainNo, trainTotalDistance: trainData[i].distance })
           break;
         }
         if ((+trainData[i].trainNo) !== (+trainData[i + 1].trainNo)) {
-          stationNumber.push({ trainNumber: trainData[i].trainNo, trainTotalStation: trainData[i].seq, trainTotalDistance: trainData[i].distance })
+          stationNumber.push({ trainNumber: trainData[i].trainNo, trainTotalDistance: trainData[i].distance })
         }
     }
     
@@ -144,7 +144,7 @@ const numOfTrain = () => {
       const currentTrain = trainData[i];
       const nextTrain = trainData[i + 1];
   
-      if (!nextTrain || currentTrain.trainName !== nextTrain.trainName) {
+      if (!nextTrain || currentTrain.trainName !== nextTrain.trainName) {  //if it reaches to last !nextTrain
         stationNumbers.push({
           trainName: currentTrain.trainName,
           trainTotalStation: currentTrain.seq
